@@ -1,0 +1,7 @@
+---
+pt-BR:
+  simple_calendar:
+    previous: "<<"
+    next: ">>"
+    week: Woche
+    Mon: seguunda

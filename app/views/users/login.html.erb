@@ -1,0 +1,65 @@
+<%= render 'header' %>
+<%# <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> %>
+  <%# <div class="container-fluid d-flex bd-highlight"> %>
+    <%# <div class="p-2 flex-grow-1 bd-highlight"> %>
+      <%# <%= link_to 'Reuniões', root_path, class:"navbar-brand" %>
+    <%# </div> %>
+  <%# </div> %>
+<%# </nav> %>
+
+<%# <div %>
+  <%# class="bg-image" %>
+  <%# style="background-color: #fcfcfc;" %>
+<%# > %>
+<%# <div class="card d-flex p-5 rounded w-25 position-absolute top-50 start-50 translate-middle shadow-lg p-5 mb-5" style="background-color: #405073">         %>
+  
+    <%# <div class="text-light d-flex justify-content-center "><%= content_tag :h1, "Login" %>
+    
+    
+    <%# <div class="input"> %>
+        <%# <input type="text" class="form-control mb-3" placeholder="Email" aria-label="Recipient's username" aria-describedby="button-addon2"> %>
+        <%# <input type="text" class="form-control mb-3" placeholder="Senha" aria-label="Recipient's username" aria-describedby="button-addon2"> %>
+        
+    <%# </div>  %>
+    <%# <div class="d-flex d-inline justify-content-center">            %>
+        <%# <a class="m-1 btn btn-light" href="/new" role="button">Registrar</a> %>
+        <%# <a class="m-1 btn btn-light" role="button">Entrar</a> %>
+    <%# </div> %>
+    
+
+<%# </div> %>
+<div
+  class="bg-image"
+  style="background-color: #fcfcfc;"
+>
+    <div class="card d-flex p-5 rounded w-25 position-absolute top-50 start-50 translate-middle shadow-lg p-5 mb-5 bg-dark" style="background-color: #405073" >
+        <div class="text-light d-flex justify-content-center">
+        <h2>Entrar</h2>
+        </div>
+        <div class="card-body">
+                <%= form_for :session, url: login_path do |f|  %>
+                    <div class="input-group mb-3 ">                    
+                        <%= f.label :usuário, class:"input-group-text pe-3" %>
+                        <%= f.text_field :name, class:"form-control" %>
+                    </div>
+
+                   
+                    <div class="input-group mb-3">
+                        <%= f.label :senha, class:"input-group-text pe-3" %>
+                        <%= f.password_field :password, class:"form-control" %>
+                    </div>
+                    <div class="text-center mb-3">
+                        <%= f.submit "Login", class:"btn btn-light"%>
+                    </div>
+
+                    <div class="alert alert-dark" role="alert">
+                        Novo usuário? 
+                    <%= link_to "Crie sua conta!", new_user_path %>
+                    </div>
+                    
+                    
+                <% end %>
+        </div>
+    </div>
+</div>
+

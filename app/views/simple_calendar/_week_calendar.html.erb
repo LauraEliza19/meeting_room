@@ -1,0 +1,105 @@
+<%@reunioes = Booking.where("@bookings.id,@bookings.description,@bookings.star_date,@bookings.start_time").joins(:user)%>
+
+<div class="container-fluid mt-5 mb-5 ">
+    <div class="row ">
+        <div class="col col-3 d-flex ">
+            <div class="navbar">
+            <%= link_to t('simple_calendar.previous', default: 'Voltar semana'), calendar.url_for_previous_view , class:"btn btn-dark" %>
+            </div>
+        </div>
+        <div class="col col-6 d-flex justify-content-around">
+            <div class='fs-5 text-center font-weight-light'>
+                <%= t('date.month_names')[start_date.month] %> <%= start_date.year %> <br>
+                <%= t('simple_calendar.week', default: ' Semana') %> <%= calendar.week_number %>
+            </div>
+        </div>
+        <div class="col col-3 d-flex justify-content-end">
+            <div class="navbar">        
+                <%= link_to t('simple_calendar.next', default: 'Avançar semana'), calendar.url_for_next_view , class:"btn btn-dark"%>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="simple-calendar ms-5 me-5">
+  
+  <table class="table table-md table-striped p-5 shadow-lg">
+  <thead>
+    <tr>
+      <th class="text-center">Horário</th>
+      <th class="text-center">Segunda-Feira</th>
+      <th class="text-center">Terça-Feira</th>
+      <th class="text-center">Quarta-Feira</th>
+      <th class="text-center">Quinta-Feira</th>
+      <th class="text-center">Sexta-Feira</th>
+    </tr>
+  </thead>
+  <tbody>
+    <td></td>
+    <% date_range.each_slice(7) do |week| %>
+        <% week.pop(2) %>
+
+        <% week.each do |day| %>
+            <%= content_tag :td, class: calendar.td_classes_for(day) do %>
+                <div class="text-center ">
+                    <%= day.strftime("%d/%m/%Y") %>
+                </div>
+            <% end %>
+        <% end %>
+
+        <% 10.upto(22).each do |hour| %>
+            <tr>
+            <td class="text-center">
+                <%= Time.parse("#{hour}:00").strftime("%H:%M") %>
+            </td>                    
+          
+          <% week.each do |day| %>
+                    
+            <td class="text-center">
+             <%#aquiii%>
+               
+                   
+                    <%= link_to_if(!@reuniao, 'Disponível', new_booking_path(star_date: day, start_time: hour),  {:remote => true, 'data-disable-with' => "teste",'data-toggle' =>  "modal", 'data-target' => '#meetModal', class: 'btn btn-sm btn-outline-dark' })  %>
+                    <%# <%= link_to 'editar', edit_booking_path(@bookings), {:style =>'display:none'} %>    
+                    <%# <%= link_to 'excluir', edit_booking_path(@bookings),  {:style =>'display:none'}%>   
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="meetModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Faça seu agendamento</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            </div>
+
+                            <%# <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            </div> %>
+                            </div>
+                        </div>
+                        
+                    </div>
+                
+               
+                                
+                            
+               
+               
+                    
+        <%# <% end %>
+               
+            </td>   
+                
+        <% end %>
+          
+        </tr>      
+      <% end %>
+      
+    <% end %>
+  </tbody>
+  
+</table>

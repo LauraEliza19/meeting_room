@@ -1,0 +1,37 @@
+
+
+
+
+<%= link_to 'Edit', edit_booking_path(@booking) %> |
+<%= link_to 'Back', bookings_path %>
+
+
+
+<div class="container w-25" >
+  <div class="card mt-4">
+    <div class="card-body">
+      <div class="mb-3">
+        <p>
+          <strong >Data:</strong>
+          <input class="form-control" type="text" placeholder="<%= @booking.star_date %>" aria-label="Disabled input example" disabled>
+        </p>
+      </div>
+      <div class="mb-3">
+        <p>
+          <strong >Hora:</strong>
+          <input class="form-control" type="text" placeholder="<%= @booking.start_time %>" aria-label="Disabled input example" disabled>
+        </p>
+      </div>
+      <div class="mb-3">
+        <strong >Descrição:</strong>
+        <div class="form-floating">
+          <textarea class="form-control" placeholder="" id="floatingTextarea2" style="height: 100px" disabled><%= @booking.description %></textarea>
+        </div>
+      </div>
+      <% @bookings.each do |book|%>
+                <%= book.description%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
