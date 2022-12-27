@@ -17,5 +17,3 @@ controle as reservas de uma sala de reunião:
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
-
-* ...
