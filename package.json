@@ -21,3 +21,11 @@
     "webpack-dev-server": "^3"
   }
 }
+{
+  "name": "meet-booking",
+  "description": "a really cool app",
+  "version": "1.0.0",
+  "engines": {
+    "node": "14.16.0"
+  }
+}
