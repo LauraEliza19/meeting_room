@@ -1,18 +1,35 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
-<%= notice %>
-<%= form_for :session do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+<div
+  class="bg-image"
+  style="background-color: #fcfcfc;"
+>
+    <div class="card d-flex p-5 rounded w-25 position-absolute top-50 start-50 translate-middle shadow-lg p-5 mb-5 bg-dark" style="background-color: #405073" >
+        <div class="text-light d-flex justify-content-center">
+        <h2>Entrar</h2>
+        </div>
+        <div class="card-body">
+                <%= form_with(scope: :session, url: bookings_path, method: :get) do |f| %>
+                    <div class="input-group mb-3 ">                    
+                        <%= f.label :Usuário, class:"input-group-text pe-3" %>
+                        <%= f.text_field :name, class:"form-control" %>
+                    </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<p>New user? <%= link_to "Sign up now!", new_user_path %></p>
-<% end %>
+                   
+                    <div class="input-group mb-3">
+                        <%= f.label :senha, class:"input-group-text pe-3" %>
+                        <%= f.password_field :password, class:"form-control" %>
+                    </div>
+                    <div class="text-center mb-3">
+                        <%= f.submit "Login", class:"btn btn-light"%>
+                    </div>
+
+                    <div class="alert alert-dark" role="alert">
+                        Novo usuário? 
+                    <%= link_to "Crie sua conta!", new_user_path %>
+                    </div>
+                    
+                    
+                <% end %>
+        </div>
+    </div>
+</div>
+
