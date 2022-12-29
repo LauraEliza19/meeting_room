@@ -12,7 +12,7 @@ module Workspace
     config.i18n.available_locales = [:en, :de, :fr, :br]
     # config.i18n.default_locale = pt-BR
 
-    
+    config.assets.initialize_on_precompile = false
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
