@@ -1,26 +1,32 @@
 class SessionsController < ApplicationController
     # before_action :block_access, except: [:destroy]
+
     def index
     end
-  
+    
     def create
-      reset_session # destroi a sessão atual
-  
-      @user = AutenticaUsuarioUsando(params[:name], params[:password])
-  
-      if @user # se existir o usuario
-        session[:user_id] = @user.id                                 # salva o id na session (usado anteriormente lembra?)
-        redirect_to bookings_path, :notice => "Logado com sucesso" # direciona para a pagina inicial de um usuário logado
-      else                                                          # caso nao exista o usuário exibe a mesma pagina mas com uma :notice de falha
-        flash.now[:notice] = "Usuário ou Senha incorretos, tente novamente."
-        render :new
+        # user = User.authenticate_by(name: params[:user][:name], password: params[:user][:password])
+    
+        user = User.find_by(name: params[:session][:name])
+        if user && user.authenticate(params[:session][:password])
+          session[:user_id] = user.id
+          flash[:notice] = " #{user.name} logado com sucesso!"
+          redirect_to bookings_path
+        else
+          flash.now[:alert] = "Dados incorretos de login."
+          render 'new'
+        end
+    end
+       
+      def destroy
+        session[:user_id] = nil
+        flash[:notice] = "Você saiu."
+        redirect_to root_path
       end
-    end
-  
-    def destroy
-      reset_session # destroi a sessão atual
-      redirect_to login_path # direciona para o path de login
-    end
+
+    # def user_params
+    #     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    # end
 end
 
 
