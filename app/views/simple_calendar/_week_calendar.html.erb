@@ -1,5 +1,5 @@
-<%@reunioes = Booking.where("@bookings.id,@bookings.description,@bookings.star_date,@bookings.start_time").joins(:user)%>
-
+<%# <%reunioes = Booking.select("@bookings.id,@bookings.description,@bookings.star_date,@bookings.start_time, users.name").joins(:user)%> %>
+<% reunioes = @bookings.select("bookings.id,bookings.description,bookings.star_date,bookings.start_time")%>
 <div class="container-fluid mt-5 mb-5 ">
     <div class="row ">
         <div class="col col-3 d-flex ">
@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="col col-6 d-flex justify-content-around">
-            <div class='fs-5 text-center font-weight-light'>
+            <div class='fs-5 text-center font-weight-light'> 
                 <%= t('date.month_names')[start_date.month] %> <%= start_date.year %> <br>
                 <%= t('simple_calendar.week', default: ' Semana') %> <%= calendar.week_number %>
             </div>
@@ -58,10 +58,17 @@
           <% week.each do |day| %>
                     
             <td class="text-center">
-             <%#aquiii%>
-               
-                   
-                    <%= link_to_if(!@reuniao, 'Disponível', new_booking_path(star_date: day, start_time: hour),  {:remote => true, 'data-disable-with' => "teste",'data-toggle' =>  "modal", 'data-target' => '#meetModal', class: 'btn btn-sm btn-outline-dark' })  %>
+             <% reservado = false %>
+                <% reunioes.each do |reuniao| %>
+                  <%if day == reuniao.star_date && hour == reuniao.start_time.strftime("%H").to_i%>
+                    
+                      Criado por: <strong><%= link_to reuniao.description, reuniao, class:"btn btn-link text-dark"%> </strong>
+                    
+                    <% reservado = true %>
+                  <% end %>
+                <% end %>
+                <% if !reservado %>
+                    <%= link_to('Disponível', new_booking_path(star_date: day, start_time: hour),  {:remote => true, 'data-disable-with' => "teste",'data-toggle' =>  "modal", 'data-target' => '#meetModal' })  %>
                     <%# <%= link_to 'editar', edit_booking_path(@bookings), {:style =>'display:none'} %>    
                     <%# <%= link_to 'excluir', edit_booking_path(@bookings),  {:style =>'display:none'}%>   
                     
@@ -75,6 +82,7 @@
                             </div>
                             <div class="modal-body">
                             </div>
+                            <% temReuniaoNoDiaNaHora = true %>
 
                             <%# <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -83,6 +91,7 @@
                         </div>
                         
                     </div>
+                <% end %>
                 
                
                                 
